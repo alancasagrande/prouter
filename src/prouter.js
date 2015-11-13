@@ -62,14 +62,8 @@ var prouter;
          * @return {Path} The resulting object.
          */
         RouteHelper.parsePath = function (path) {
-            var parser;
-            if (typeof _global.URL === 'function') {
-                parser = new _global.URL(path, 'http://example.com');
-            }
-            else {
-                parser = document.createElement('a');
-                parser.href = 'http://example.com/' + path;
-            }
+            var parser = document.createElement('a');
+            parser.href = 'http://example.com/' + path;
             var parsedPath = {
                 path: RouteHelper.clearSlashes(parser.pathname),
                 query: RouteHelper.parseQuery(parser.search),
@@ -116,7 +110,7 @@ var prouter;
          * @return {string} The string without leading slashes.
          */
         RouteHelper.clearSlashes = function (path) {
-            return path.replace(LEADING_SLASHES_STRIPPER, '');
+            return path && path.replace(LEADING_SLASHES_STRIPPER, '');
         };
         /**
          * Get the flags for a regexp from the options.
